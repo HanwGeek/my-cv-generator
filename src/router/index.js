@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainFrame from '@/components/MainFrame'
+import CVLayer from '@/components/CVLayer'
+import User from '@/components/User'
 
 Vue.use(Router)
 
@@ -8,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainFrame',
-      component: MainFrame
+      name: 'User',
+      component: User
     }
   ]
 })

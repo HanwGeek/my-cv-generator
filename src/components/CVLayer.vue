@@ -182,8 +182,6 @@
 <script>
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
-// require('pdfmake/build/vfs_fonts.js');
-import * as jsPDF from 'jspdf'
 
 export default {
   data() {
@@ -426,23 +424,6 @@ export default {
       }
       pdfMake.createPdf(cv).open();
     },
-    generatePDF() {
-      function open_data_uri_window(url) {
-        var html = '<html>' +
-        '<style>html, body { padding: 0; margin: 0; } iframe { width: 100%; height: 100%; border: 0;}  </style>' +
-        '<body>' +
-        '<iframe src="' + url + '"></iframe>' +
-        '</body></html>';
-        a = window.open()
-        a.document.write(html)
-      }
-      var cv = new jsPDF();
-      cv.setLineWidth(1);
-      cv.setDrawColor(64, 158, 255);
-      cv.line(60, 20, 115, 60);
-      var a = cv.output('datauri');
-      open_data_uri_window(a); 
-    },
     addEdu() {
       this.edus.push({
         name: this.eduName,
@@ -466,13 +447,16 @@ export default {
       this.skillCount = this.skills.length;
     },
     deleteEdu(index, r) {
-      this.edus.splice(index, 1)
+      this.edus.splice(index, 1);
+      this.eduCount = this.edus.length;
     },
     deleteHonor(index, r) {
-      this.honors.splice(index, 1)
+      this.honors.splice(index, 1);
+      this.honorCount = this.honors.length;
     },
     deleteSkill(index, r) {
-      this.skills.splice(index, 1)
+      this.skills.splice(index, 1);
+      this.skillCount = this.skills.length;
     },
     handleAvatarSuccess(res, file) {
       // this.imageUrl = URL.createObjectURL(file.raw);

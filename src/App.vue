@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <router-view/>
+    <NavHeader />
+    <el-container>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
+import NavHeader from './components/NavHeader'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    NavHeader
+  }
 }
 </script>
 
