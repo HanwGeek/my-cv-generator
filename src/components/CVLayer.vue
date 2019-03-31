@@ -208,6 +208,13 @@ export default {
       }
     };
   },
+  mounted () {
+    var userInfo = this.$route.params;
+    this.cv.name = userInfo.name;
+    this.cv.gender = userInfo.gender;
+    this.cv.phone = userInfo.phone;
+    this.cv.github_url = userInfo.github;
+  },
   methods: {
     generatePDFMake () {
       var cvStyle = {
@@ -471,10 +478,10 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
+        this.$message.error('The format of image can only be JPG!');
       }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('The size of image cannot be over 2MB!');
       }
       return isJPG && isLt2M;
     }

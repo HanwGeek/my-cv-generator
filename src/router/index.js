@@ -11,6 +11,11 @@ export default new Router({
       path: '/',
       name: 'User',
       component: User
+    },
+    {
+      path: '/cv',
+      name: 'CV',
+      component: CVLayer
     }
   ]
 })

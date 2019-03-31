@@ -14,7 +14,7 @@ export default {
   name: 'NavHeader',
   data() {
     return {
-      title: 'My CV Generator',
+      title: 'My CV Generator(暂不支持中文)',
       avatar: require("../assets/avatar.jpg")
     }
   }

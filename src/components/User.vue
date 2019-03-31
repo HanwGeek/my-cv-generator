@@ -28,10 +28,10 @@
                   <el-radio v-model="gender" label="Female">Female</el-radio>
                 </el-form-item>               
                 <el-form-item label="Phone:">
-                  <el-input v-model="name"></el-input>
+                  <el-input v-model="phone"></el-input>
                 </el-form-item>               
                 <el-form-item label="Github:">
-                  <el-input v-model="name"></el-input>
+                  <el-input v-model="github"></el-input>
                 </el-form-item>               
               </el-form>
               <el-row type="flex" justify="center">
@@ -45,7 +45,7 @@
             </el-dialog>
           </el-col>
           <el-col :span="12">
-            <el-button size="small" type="primary" @click="loginDialShow = true" round>Sign Up</el-button>
+            <el-button size="small" type="primary" @click="loginDialShow = true" round>Log In</el-button>
             <el-dialog
               title="Log In"
               :visible.sync="loginDialShow"
@@ -94,16 +94,61 @@ export default {
   },
   methods: {
     register() {
-      this.registerDialShow = false;
+      if (!this.username || !this.password) {
+        this.$message.error('UserName or Password cannot be NULL!');
+        return;
+      }
+      var info = {
+        username: this.username,
+        password: this.password,
+        name: this.name,
+        gender: this.gender,
+        phone: this.phone,
+        github: this.github
+      };
+      this.$http.post('http://101.132.171.223:3000/register', info).then(res => {
+        if (res.body == "0") {
+          this.$message({
+            message: 'Sign Up Successfully!',
+            type: 'success'
+          });
+        }
+        if (res.body == "1") {
+          this.$message.error('UserName Already Exists!');
+          return;
+        }
+        this.registerDialShow = false;
+      });
     },
     login() {
-      this.loginDialShow = false;
+      var info = {
+        username: this.username,
+        password: this.password
+      };
+      this.$http.post('http://101.132.171.223:3000/login', info).then(res => {
+        if (res.body.length == 0) {
+          this.$message.error('UserName or Password Error!');
+        }
+        else {
+          this.$message({
+            message: 'Log In Sucessfully!',
+            type: 'success'
+          });
+          this.loginDialShow = false;
+          var userInfo = res.body[0];
+          this.$router.push({
+            name: 'CV',
+            params: userInfo
+          });
+        }
+      });
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+
 .el-card {
   width: 600px;
   height: 500px;
