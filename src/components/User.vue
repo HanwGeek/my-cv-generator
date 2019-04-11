@@ -1,6 +1,7 @@
 <template>
   <div id="user">
     <center>
+      <!-- 用户注册主界面 -->
       <el-card>
         <div id="title">{{title}}</div>
         <div id="cv">
@@ -125,6 +126,7 @@ export default {
         username: this.username,
         password: this.password
       };
+      // 将注册信息上传到后台服务器与数据库
       this.$http.post('http://101.132.171.223:3000/login', info).then(res => {
         if (res.body.length == 0) {
           this.$message.error('UserName or Password Error!');

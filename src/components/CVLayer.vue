@@ -1,7 +1,9 @@
 <template>
   <div id="cv-layer">
     <center>
+      <!-- 简历主界面 -->
       <el-card>
+        <!-- 个人信息 -->
         <el-form label-width="80px" size="small">
           <el-upload
             class="avatar-uploader"
@@ -14,66 +16,78 @@
           </el-upload>
           <br>
           <el-row>
-          <el-col :span="8" :offset="3">
-          <el-form-item label="Name:">
-            <el-input 
-              v-model="cv.name"
-              class="input">
-            </el-input>
-          </el-form-item>
-          </el-col>
-          <el-col :span="1" :offset="2">
-          <el-form-item label="Gender:">
-            <el-radio v-model="cv.gender" label="Male">Male</el-radio>
-            <el-radio v-model="cv.gender" label="Female">Female</el-radio>
-          </el-form-item>
-          </el-col>
+            <el-col :span="8" :offset="3">
+              <el-form-item label="Name:">
+              <el-input 
+                v-model="cv.name"
+                class="input">
+              </el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="1" :offset="2">
+              <el-form-item label="Gender:">
+                <el-radio v-model="cv.gender" label="Male">Male</el-radio>
+                <el-radio v-model="cv.gender" label="Female">Female</el-radio>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
-          <el-col :span="8" :offset="3">
-          <el-form-item label="Phone:">
-            <el-input 
-              v-model="cv.phone"
-              class="input">
-            </el-input>
-          </el-form-item>
-          </el-col>
-          <el-col :span="1" :offset="2">
-          <el-form-item label="GitHub:">
-            <el-input 
-              v-model="cv.github_url"
-              class="input">
-            </el-input>
-          </el-form-item>
-          </el-col>
+            <el-col :span="8" :offset="3">
+            <el-form-item label="Phone:">
+              <el-input 
+                v-model="cv.phone"
+                class="input">
+              </el-input>
+            </el-form-item>
+            </el-col>
+            <el-col :span="1" :offset="2">
+            <el-form-item label="GitHub:">
+              <el-input 
+                v-model="cv.github_url"
+                class="input">
+              </el-input>
+            </el-form-item>
+            </el-col>
           </el-row>
-          <el-input
-            v-model="eduName"
-            placeholder="填写教育经历"
-            size="small">
-          </el-input>
-          <el-date-picker 
-            v-model="eduStart"  
-            type="month"
-            placeholder="选择开始时间"
-            value-format="yyyy-MM-dd"
-            size="small">
-          </el-date-picker>
-          <el-date-picker 
-            v-model="eduEnd"  
-            type="month"
-            placeholder="选择结束时间"
-            value-format="yyyy-MM-dd"
-            size="small">
-          </el-date-picker>
-          <el-button 
-            icon="el-icon-circle-plus" 
-            circle size="small"
-            @click="addEdu"
-            :disabled="eduCount>2?true:false">
-          </el-button>
-          <span class="subtitle">Education:</span>
-          <hr class="separator"/>
+          <!-- 修改线条颜色 -->
+          <el-row>
+            修改线条颜色:
+            <el-color-picker v-model="lineColor" size="mini"></el-color-picker>
+          </el-row>
+          <!-- 教育经历 -->        
+          <el-row>  
+            <el-col :span="4">
+              <span class="subtitle">Education:</span>
+            </el-col>
+            <el-col :span="32">
+              <el-input
+                v-model="eduName"
+                placeholder="填写教育经历"
+                size="small">
+              </el-input>
+              <el-date-picker 
+                v-model="eduStart"  
+                type="month"
+                placeholder="选择开始时间"
+                value-format="yyyy-MM-dd"
+                size="small">
+              </el-date-picker>
+              <el-date-picker 
+                v-model="eduEnd"  
+                type="month"
+                placeholder="选择结束时间"
+                value-format="yyyy-MM-dd"
+                size="small">
+              </el-date-picker>
+              <el-button 
+                icon="el-icon-circle-plus" 
+                circle size="small"
+                @click="addEdu"
+                :disabled="eduCount> 2 ? true : false">
+              </el-button>
+            </el-col>
+          </el-row>
+          <hr class="separator" :style="{'background-color':lineColor}"/>
           <el-table class="tb-edit" :data="edus">
             <el-table-column
               prop="name"
@@ -87,31 +101,39 @@
               prop="end"
               label="End Time">
             </el-table-column>
-             <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <el-button size="small" type="danger" @click="deleteEdu(scope.$index, scope.row)">删除</el-button>
-                </template>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                  <el-button size="small" type="danger" @click="deleteEdu(scope.$index, scope.row)">删除</el-button>
+              </template>
             </el-table-column>
           </el-table>
-          <span class="subtitle">Honor:</span>
-          <el-input
-            v-model="honorName"
-            placeholder="填写荣誉奖项"
-            size="small">
-          </el-input>
-          <el-date-picker 
-            v-model="honorTime"  
-            placeholder="选择获得时间"
-            value-format="yyyy-MM-dd"
-            size="small">
-          </el-date-picker>
-          <el-button 
-            icon="el-icon-circle-plus" 
-            circle size="small"
-            @click="addHonor"
-            :disabled="honorCount>2?true:false">
-          </el-button>
-          <hr class="separator"/>
+          <!-- 荣誉奖项 -->
+          <el-row>
+            <el-col :span="6">
+              <span class="subtitle">Honor:</span>
+            </el-col>
+            <el-col :span="32">
+              <el-input
+                v-model="honorName"
+                placeholder="填写荣誉奖项"
+                size="small">
+              </el-input>
+              <el-date-picker 
+                v-model="honorTime"  
+                placeholder="选择获得时间"
+                value-format="yyyy-MM-dd"
+                size="small">
+              </el-date-picker>
+              <el-button 
+                icon="el-icon-circle-plus" 
+                circle size="small"
+                @click="addHonor"
+                :disabled="honorCount>2 ? true : false">
+              </el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+          <hr class="separator" :style="{'background-color':lineColor}"/>
           <el-table :data="honors">
             <el-table-column
               prop="name"
@@ -127,30 +149,36 @@
                 </template>
             </el-table-column>
           </el-table>
-            <el-col :span="5">
+          </el-row>
+          <el-row>
+          <!-- 技能特长 -->
+            <el-col :span="4">
               <span class="subtitle">Skill:</span>
             </el-col>
-            <el-col :span="7">
-          <el-input
-            v-model="skillName"
-            placeholder="填写技能特长"
-            size="small">
-          </el-input>
+            <el-col :span="4">
+              <el-input
+                v-model="skillName"
+                placeholder="填写技能特长"
+                size="small">
+              </el-input>
             </el-col>
-            <el-col :span="2">
-          <el-slider
-            v-model="skillProf"
-            :step="20"
-            show-stops>
-          </el-slider>
+            <el-col :offset="3" :span="5">
+              <el-slider 
+                v-model="skillProf"
+                :step="20"
+                show-stops>
+              </el-slider>
             </el-col>
-          <el-button 
-            icon="el-icon-circle-plus" 
-            circle size="small"
-            @click="addSkill"
-            :disabled="skillCount>2?true:false">
-          </el-button>
-          <hr class="separator"/>
+            <el-col :span="4">
+              <el-button 
+                icon="el-icon-circle-plus" 
+                circle size="small"
+                @click="addSkill"
+                :disabled="skillCount>2?true:false">
+              </el-button>
+            </el-col>
+          </el-row>
+          <hr class="separator" :style="{'background-color':lineColor}"/>
           <el-table :data="skills">
             <el-table-column
               prop="name"
@@ -182,10 +210,12 @@
 <script>
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default {
   data() {
     return {
+      // 初始化所需变量
       imageUrl: "",
       eduCount: 0,
       honorCount: 0,
@@ -200,6 +230,7 @@ export default {
       edus: [],
       honors: [],
       skills: [],
+      lineColor: "#409EFF",
       cv: {
         name: null,
         gender: null,
@@ -209,6 +240,7 @@ export default {
     };
   },
   mounted () {
+    // 用户登录信息初始化
     var userInfo = this.$route.params;
     this.cv.name = userInfo.name;
     this.cv.gender = userInfo.gender;
@@ -217,6 +249,8 @@ export default {
   },
   methods: {
     generatePDFMake () {
+      // 根据所填信息生成PDF版简历
+      // 简历模板风格初始化
       var cvStyle = {
         info: {
           fontSize: 20,
@@ -240,10 +274,12 @@ export default {
         }
       };
       
+      // 初始化信息列表
       var edus = [];
       var honors = [];
       var skills = [];
 
+      // 插入所添加的教育信息
       for (var i = 0; i < this.edus.length; i++) {
         var _edu = {};
         _edu.columns = [];
@@ -257,11 +293,7 @@ export default {
           text: edu['start'],
           style: 'eduInfo'
         });
-        // _edu.columns.push({
-        //   text: '---',
-        //   fontSize: 22,
-        //   width: '10%'
-        // })
+
         _edu.columns.push({
           text: edu['end'],
           style: 'eduInfo'
@@ -273,6 +305,7 @@ export default {
         })
       }
 
+      // 插入所添加的荣誉信息
       for (var i = 0; i < this.honors.length; i++) {
         var _honor = {};
         _honor.columns = [];
@@ -293,6 +326,7 @@ export default {
         })
       }
 
+      // 插入所添加的技能信息
       for (var i = 0; i < this.skills.length; i++) {
         var _skill = {};
         _skill.columns = [];
@@ -309,7 +343,7 @@ export default {
               x2: skill['prof'] * 2, y2: 12,
               lineWidth: 6,
               lineCap: 'round',
-              lineColor: '#409EFF'
+              lineColor: this.lineColor
           }]  
         });
         skills.push(_skill);
@@ -320,6 +354,7 @@ export default {
       }
       skills.pop();
 
+      // 开始渲染
       var cvContent = [
         {
           image: this.imageUrl,
@@ -370,7 +405,7 @@ export default {
               x2: 510, y2: 5,
               lineWidth: 6,
               lineCap: 'round',
-              lineColor: '#409EFF'
+              lineColor: this.lineColor
             }
           ]
         },
@@ -392,7 +427,7 @@ export default {
               x2: 510, y2: 5,
               lineWidth: 6,
               lineCap: 'round',
-              lineColor: '#409EFF'
+              lineColor: this.lineColor
             }
           ]
         },
@@ -414,7 +449,7 @@ export default {
               x2: 510, y2: 5,
               lineWidth: 6,
               lineCap: 'round',
-              lineColor: '#409EFF'
+              lineColor: this.lineColor
             }
           ]
         },
@@ -424,56 +459,92 @@ export default {
         },
         skills
       ];
+      
+      // 整合简历
       var cv = {
         pageSize: 'A4',
         content: cvContent,
         styles: cvStyle
       }
+
+      // 生成简历
       pdfMake.createPdf(cv).open();
     },
     addEdu() {
+      // 添加教育信息
+      // 验证信息是否填满
+      if (this.eduName == null || this.eduStart == null || this.eduEnd == null) {
+        this.$message.error("Pleas fill all of the blank!");
+        return;
+      }
       this.edus.push({
         name: this.eduName,
         start: this.eduStart,
         end: this.eduEnd        
       });
       this.eduCount = this.edus.length;
+      // 清空缓存
+      this.eduName = null;
+      this.eduStart = null;
+      this.eduEnd = null;
     },
     addHonor() {
+      // 添加荣誉信息
+      // 验证信息是否填满
+      if (this.honorName == null || this.honorTime == null) {
+        this.$message.error("Pleas fill all of the blank!");
+        return;        
+      }
       this.honors.push({
         name: this.honorName,
         time: this.honorTime
       });
       this.honorCount = this.honors.length;
+      // 清空缓存
+      this.honorName = null;
+      this.honorTime = null;
     },
     addSkill() {
+      // 添加技能信息
+      // 验证信息是否填满
+      if (this.skillName == null) {
+        this.$message.error("Pleas fill all of the blank!");
+        return;        
+      }
       this.skills.push({
         name: this.skillName,
         prof: this.skillProf
       });
       this.skillCount = this.skills.length;
+      // 清空缓存
+      this.skillName = null;
+
     },
     deleteEdu(index, r) {
+      // 删除指定教育信息
       this.edus.splice(index, 1);
       this.eduCount = this.edus.length;
     },
     deleteHonor(index, r) {
+      // 删除指定荣誉信息行
       this.honors.splice(index, 1);
       this.honorCount = this.honors.length;
     },
     deleteSkill(index, r) {
+      // 删除指定技能信息行
       this.skills.splice(index, 1);
       this.skillCount = this.skills.length;
     },
     handleAvatarSuccess(res, file) {
-      // this.imageUrl = URL.createObjectURL(file.raw);
+      // 加载所上传的头像
       var reader = new FileReader();
-      reader.readAsDataURL(file.raw);
+      reader.readAsDataURL(file.raw); // Base64编码转换
       reader.onload = () => {
         this.imageUrl = reader.result;
       }
     },
     beforeAvatarUpload(file) {
+      // 检测头像是否符合条件
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -530,21 +601,10 @@ export default {
 .el-slider {
   width: 200px;
 }
-/* .tb-edit .el-input {
-  display: none;
-} */
-
-/* .tb-edit .current-row .el-input {
-    display: block
-} */
-
-/* .tb-edit .current-row .el-input+span {
-    display: none
-} */
 
 .separator {
-  height: 8px;
-  background-color: #409EFF;
+  height: 6px;
+  /* background-color: #409EFF; */
 }
 
 .subtitle {
@@ -552,5 +612,3 @@ export default {
   float: left;
 }
 </style>
-
-
