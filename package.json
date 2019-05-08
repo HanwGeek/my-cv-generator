@@ -1,5 +1,5 @@
 {
-  "name": "my-cv",
+  "name": "my-cv-generator",
   "version": "1.0.0",
   "description": "A Curriculum Vitae web generator with Vue.js.",
   "author": "HanwGeek <HanwGeek@gmail.com>",
@@ -30,7 +30,6 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-register": "^6.22.0",
     "chalk": "^2.0.1",
-    "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
